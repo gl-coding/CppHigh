@@ -17,6 +17,7 @@ int test1(){
         array[i] = initValue;
         initValue++;
     }
+    return 0;
 }
 
 int test2(){
@@ -27,6 +28,7 @@ int test2(){
     for (int i = 0; i  < numElements; i++) {
         array[i] = initValue + i;
     }
+    return 0;
 }
 
 int test3(){
@@ -36,6 +38,23 @@ int test3(){
     for (int i = 0; i < 100; i++) {
         sum += array[i];
     }
+    return 0;
+}
+
+int doSomething(int a){
+    return a;
+}
+
+int test4(){
+    // 2. 通过OpenMP指令说明私有变量
+    int temp;
+    int array[100] = {0};
+    #pragma omp parallel for private(temp)
+    for (int i = 0; i < 100; i++) {
+        temp = array[i];
+        array[i] = doSomething(temp);
+    }
+    return 0;
 }
 
 int main()
@@ -43,6 +62,7 @@ int main()
     //test();
     //test1();
     //test2();
-    test3();
+    //test3();
+    test4();
     return 0;
 }
